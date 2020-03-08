@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.9" type="plugin" group="system" method="upgrade">
+    <name>PLG_SYSTEM_YOOTOOLBAR</name>
+    <author>Tsymbal</author>
+    <creationDate>09.03.2020</creationDate>
+    <copyright>Copyright © 2020 Delo Design. All rights reserved.</copyright>
+    <license>https://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+    <authorEmail>cymbal@delo-design.ru</authorEmail>
+    <authorUrl>https://delo-design.ru</authorUrl>
+    <version>1.0</version>
+    <description>PLG_SYSTEM_YOOTOOLBAR_DESCRIPTION</description>
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.plg_system_yootoolbar.ini</language>
+        <language tag="en-GB">en-GB/en-GB.plg_system_yootoolbar.sys.ini</language>
+        <language tag="ru-RU">ru-RU/ru-RU.plg_system_yootoolbar.ini</language>
+        <language tag="ru-RU">ru-RU/ru-RU.plg_system_yootoolbar.sys.ini</language>
+    </languages>
+    <media folder="media" destination="plg_system_yootoolbar">
+        <folder>css</folder>
+        <folder>js</folder>
+    </media>
+    <files>
+        <filename plugin="yootoolbar">yootoolbar.php</filename>
+    </files>
+    <config>
+    </config>
+</extension>
