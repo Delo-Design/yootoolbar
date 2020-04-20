@@ -1,4 +1,16 @@
-window.jYProExtraToolbar = {
+window.YooExtendToolbar = {
+
+    /**
+     *
+     */
+    initFlag: false,
+
+
+    /**
+     *
+     */
+    memoryButtons: [],
+
 
     /**
      * Dom object toolbar
@@ -30,35 +42,30 @@ window.jYProExtraToolbar = {
      */
     init: function () {
         let yo_preview = document.querySelector('.yo-preview');
-        this.element = this.createElement('div', {'class': 'jyproextra-toolbar'})
-            .addChild('div', {
-                'class': 'uk-position-relative',
-                'data-uk-slider': ''
-            })
-                this.element_root_buttons = this.element.add('ul', {'class': 'uk-slider-items uk-grid-medium uk-child-width-auto'});
-                this.element = this.element_root_buttons.getParent()
-                .add('a', {
-                    'class': 'uk-position-center-left uk-position-small',
-                    'href': '#',
-                    'uk-slidenav-previous': '',
-                    'uk-slider-item': 'previous',
-                })
-                .add('a', {
-                    'class': 'uk-position-center-right uk-position-small',
-                    'href': '#',
-                    'uk-slidenav-next': '',
-                    'uk-slider-item': 'next',
-                });
+        this.element = this.createElement('div', {'class': 'yooextendtoolbar-toolbar'})
+            .add('div', {
+                'class': 'uk-grid-small uk-child-width-auto buttons',
+                'uk-grid': ''
+            });
 
         this.element = this.element.build();
-        this.element_root_buttons = this.element.querySelector('ul');
+        this.element_root_buttons = this.element.querySelector('.buttons');
 
         let self = this;
         let wait_load_yo_preview = setInterval(function () {
             yo_preview =  document.querySelector('.yo-preview');
             if(yo_preview !== null) {
-                yo_preview.classList.add('has-jyproextra-toolbar');
+                yo_preview.classList.add('has-yooextendtoolbar-toolbar');
                 yo_preview.appendChild(self.element);
+                self.initFlag = true;
+
+                if(self.memoryButtons.length > 0) {
+                    for (let i=0;i<self.memoryButtons.length;i++) {
+                        self.appendButton(self.memoryButtons[i].item, self.memoryButtons[i].parent)
+                    }
+                    self.memoryButtons = [];
+                }
+
                 clearInterval(wait_load_yo_preview);
             }
         }, 300);
@@ -73,7 +80,15 @@ window.jYProExtraToolbar = {
      * @param parent
      */
     appendButton: function (item, parent) {
-        let button;
+        let self = this,
+        button;
+
+
+        if(!self.initFlag)
+        {
+            self.memoryButtons.push({'item': item, 'parent': parent});
+            return;
+        }
 
         if(parent !== undefined && parent !== null) {
             button = this.createElement('li', {'class': 'jytbtn-' + item.id});
@@ -124,7 +139,7 @@ window.jYProExtraToolbar = {
                 .addChild('div', {'class': 'uk-inline'}, button)
                     .getParent();
 
-            this.element_root_buttons.append(wrap.build());
+            self.element_root_buttons.append(wrap.build());
         }
 
         if(item.events !== undefined) {
@@ -265,51 +280,6 @@ window.jYProExtraToolbar = {
 
 };
 
-
 document.addEventListener('DOMContentLoaded', function () {
-    window.jYProExtraToolbar.init();
-
-
-    jYProExtraToolbar.appendButtons([
-        {
-            'label': 'Файлы',
-            'id': 'files',
-            'icon': 'folder',
-            'events': {
-                'click': function () {
-                    //Qauntummanager.open();
-                }
-            },
-            'items': [
-                {
-                    'label': 'Область 1',
-                    'id': 'scopes-1',
-                    'icon': 'folder',
-                    'events': {
-                        'click': function () {
-                            //Qauntummanager.open({'scope': 'scope-1'});
-                        }
-                    },
-                },
-                {
-                    'label': 'Область 2',
-                    'id': 'scopes-2',
-                    'icon': 'folder',
-                    'events': {
-                        'click': function () {
-                            //Qauntummanager.open({'scope': 'scope-2'});
-                        }
-                    }
-                }
-            ]
-        }
-    ]);
-
-    for (let i=0;i<15;i++) {
-        jYProExtraToolbar.appendButton({
-            'label': 'Элемент',
-            'id': 'item-1',
-        });
-    }
-
+    window.YooExtendToolbar.init();
 });

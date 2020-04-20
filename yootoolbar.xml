@@ -22,6 +22,10 @@
     <files>
         <filename plugin="yootoolbar">yootoolbar.php</filename>
     </files>
-    <config>
-    </config>
+    <updateservers>
+        <server type="extension" priority="1" name="yootoolbar">
+            https://hika.su/update/free/yootoolbar.xml
+        </server>
+    </updateservers>
+    <config></config>
 </extension>

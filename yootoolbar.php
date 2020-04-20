@@ -4,6 +4,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Plugin\CMSPlugin;
 
 class PlgSystemYootoolbar extends CMSPlugin
 {
@@ -16,21 +17,13 @@ class PlgSystemYootoolbar extends CMSPlugin
 	 */
 	public function onBeforeCompileHead()
 	{
-
-		if ($this->app->isClient('administrator') && $this->app->input->get('option') === 'com_ajax'
-			&& $this->app->input->get('p') === 'customizer')
+		$app = Factory::getApplication();
+		if ($app->isClient('administrator') && $app->input->get('option') === 'com_ajax'
+			&& $app->input->get('p') === 'customizer')
 		{
 			HTMLHelper::script('plg_system_yootoolbar/toolbar.js', ['version' => 'auto', 'relative' => true]);
 			HTMLHelper::stylesheet('plg_system_yootoolbar/toolbar.css', ['version' => 'auto', 'relative' => true]);
 		}
-
-	}
-
-
-	public function render()
-	{
-		//запустить триггер
-
 
 	}
 
